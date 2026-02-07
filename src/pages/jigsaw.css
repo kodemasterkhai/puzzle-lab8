@@ -1,0 +1,77 @@
+.jigsawShell {
+  display: grid;
+  place-items: center;
+}
+
+.jigsawFrame {
+  width: min(520px, 92vw);
+  border-radius: 18px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.jigsawGrid {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  gap: 8px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 24px 90px rgba(0, 0, 0, 0.55);
+  position: relative;
+}
+
+.jigsawGrid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url(/london.png);
+  background-size: cover;
+  background-position: center;
+  opacity: 0.14;
+  pointer-events: none;
+}
+
+.jigsaw3 {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.jTile {
+  position: relative;
+  z-index: 1;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background-repeat: no-repeat;
+  cursor: grab;
+  transition: transform 120ms ease, outline 120ms ease, filter 120ms ease;
+}
+
+.jTile:hover {
+  filter: brightness(1.06);
+}
+
+.jTile:active {
+  cursor: grabbing;
+  transform: scale(0.98);
+}
+
+.jOver {
+  outline: 2px solid rgba(180, 160, 255, 0.85);
+  outline-offset: -2px;
+}
+
+.jSolved {
+  cursor: default;
+}
+
+.jTip {
+  margin-top: 12px;
+  width: min(520px, 92vw);
+  text-align: center;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.70);
+  line-height: 1.5;
+}
