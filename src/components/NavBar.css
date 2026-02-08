@@ -2,25 +2,57 @@
   position: sticky;
   top: 0;
   z-index: 1000;
+  backdrop-filter: blur(16px);
+  background: rgba(6, 10, 22, 0.55);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.navInner {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.brand {
+  font-weight: 900;
+  letter-spacing: -0.3px;
+  opacity: 0.9;
+  white-space: nowrap;
+}
+
+.navLinks {
   display: flex;
   gap: 10px;
-  justify-content: center;
   flex-wrap: wrap;
-  padding: 10px;
-  backdrop-filter: blur(14px);
-  background: rgba(10, 15, 30, 0.6);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  justify-content: flex-end;
 }
 
 .navBtn {
   padding: 8px 14px;
   border-radius: 999px;
   text-decoration: none;
-  color: white;
+  color: rgba(255,255,255,0.92);
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.14);
+  transition: transform 160ms ease, background 160ms ease, border 160ms ease;
+  font-weight: 750;
+  font-size: 14px;
+}
+
+.navBtn:hover {
+  background: rgba(255,255,255,0.10);
+  border-color: rgba(255,255,255,0.18);
+}
+
+.navBtn:active {
+  transform: translateY(1px) scale(0.99);
 }
 
 .navBtn.active {
   background: rgba(124,58,237,0.85);
+  border-color: rgba(124,58,237,0.90);
 }
