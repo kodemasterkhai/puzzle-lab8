@@ -1,35 +1,317 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+/* =========================================================
+   Puzzle Lab — index.css (Mobile FIX v2)
+   Replaces nav overlap + forces right-side dock on iPhone
+   ========================================================= */
 
-:root {
-  --bg0: #0b0b12;
-  --bg1: #0f1020;
-  --card: rgba(255, 255, 255, 0.06);
-  --border: rgba(255, 255, 255, 0.1);
-  --text: rgba(255, 255, 255, 0.92);
-  --muted: rgba(255, 255, 255, 0.65);
-  --shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-* {
-  box-sizing: border-box;
+html,
+body {
+  height: 100%;
 }
 
 body {
   margin: 0;
-  font-family: Inter, system-ui, sans-serif;
-  color: var(--text);
-  background:
-    radial-gradient(900px 400px at 10% 0%, rgba(139, 92, 246, 0.26), transparent 55%),
-    radial-gradient(800px 360px at 90% 10%, rgba(59, 130, 246, 0.20), transparent 55%),
-    linear-gradient(180deg, var(--bg0), var(--bg1));
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  color: #fff;
+  background: radial-gradient(circle at top, #0f172a, #020617);
+  overflow-x: hidden;
 }
 
-a { color: inherit; }
+/* iOS safe areas */
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
 
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 18px;
+  --max-width: 900px;
+  --page-pad-x: 18px;
+
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-bg-strong: rgba(255, 255, 255, 0.09);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --shadow: 0 18px 55px rgba(0, 0, 0, 0.45);
+
+  --accent: 155, 102, 255;
+}
+
+/* Subtle glow blobs */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(600px 350px at 20% 18%, rgba(var(--accent), 0.18), transparent 60%),
+    radial-gradient(500px 300px at 85% 30%, rgba(var(--accent), 0.12), transparent 65%),
+    radial-gradient(700px 450px at 55% 90%, rgba(59, 130, 246, 0.08), transparent 60%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+:focus-visible {
+  outline: 2px solid rgba(var(--accent), 0.55);
+  outline-offset: 2px;
+  border-radius: 10px;
+}
+
+/* =========================================================
+   MAIN PAGE WRAPPER
+   ========================================================= */
+
+.home {
+  min-height: 100vh;
+  padding: calc(18px + var(--safe-top)) var(--page-pad-x) calc(22px + var(--safe-bottom));
+  display: flex;
+  justify-content: center;
+}
+
+/* Reserve space on the right so dock never overlaps content */
+.homeCard {
+  width: 100%;
+  max-width: var(--max-width);
+  border-radius: 22px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
   box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  overflow: hidden;
+  position: relative;
+}
+
+.homeCardInner {
+  position: relative;
+  padding: 26px 22px 22px;
+
+  /* KEY: leave room for the floating nav dock */
+  padding-right: 110px;
+}
+
+/* Title + intro */
+.homeTitle {
+  margin: 0;
+  font-size: 2.05rem;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.homeMuted {
+  margin: 10px 0 0;
+  opacity: 0.86;
+  max-width: 30ch;
+  font-size: 0.98rem;
+}
+
+/* =========================================================
+   THEME SELECTOR (keeps it tidy on mobile)
+   ========================================================= */
+
+.themeRow,
+.themePicker,
+.themeSelectRow,
+.themeContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.themeSelect,
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.18);
+  color: white;
+  padding: 10px 12px;
+  border-radius: 999px;
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* =========================================================
+   NAV DOCK — THIS IS THE FIX
+   We grab a bunch of common class names to catch your nav
+   ========================================================= */
+
+/* Treat ANY of these as the dock container */
+.navDock,
+.nav,
+.navMenu,
+.navButtons,
+.navLinks,
+.homeNav,
+.sideNav,
+.rightNav,
+.menuDock,
+.menuButtons,
+.linksDock {
+  position: fixed !important;
+  top: 50% !important;
+  right: calc(10px + var(--safe-right)) !important;
+  transform: translateY(-50%) !important;
+  z-index: 9999 !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+
+  padding: 10px !important;
+  border-radius: 18px !important;
+  background: rgba(0, 0, 0, 0.18) !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  box-shadow: 0 0 0 1px rgba(var(--accent), 0.22), 0 18px 55px rgba(var(--accent), 0.12) !important;
+}
+
+/* Make any links inside that dock look like proper pill buttons */
+.navDock a,
+.nav a,
+.navMenu a,
+.navButtons a,
+.navLinks a,
+.homeNav a,
+.sideNav a,
+.rightNav a,
+.menuDock a,
+.menuButtons a,
+.linksDock a {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  text-decoration: none !important;
+  color: rgba(255, 255, 255, 0.92) !important;
+
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 999px !important;
+
+  padding: 12px 14px !important;
+  min-height: 44px !important;
+  font-size: 0.95rem !important;
+
+  transition: transform 140ms ease, background 140ms ease, border-color 140ms ease !important;
+}
+
+.navDock a:hover,
+.nav a:hover,
+.navMenu a:hover,
+.navButtons a:hover,
+.navLinks a:hover,
+.homeNav a:hover,
+.sideNav a:hover,
+.rightNav a:hover,
+.menuDock a:hover,
+.menuButtons a:hover,
+.linksDock a:hover {
+  transform: translateY(-1px) !important;
+  background: rgba(255, 255, 255, 0.09) !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+}
+
+/* =========================================================
+   HIDE THE DUPLICATE LEFT “LINK LIST” NAV (the one with emojis)
+   This is what’s causing the “fucked” split layout.
+   ========================================================= */
+
+/* Common sidebar / link-list class names */
+.sidebar,
+.leftNav,
+.leftMenu,
+.linkList,
+.mobileLinks,
+.pageLinks,
+.quickLinks,
+.linksPanel,
+.sideLinks {
+  display: none !important;
+}
+
+/* Extra safety: if there’s a vertical list of underlined links inside the main card,
+   hide it (this matches that left link stack you’re seeing). */
+.homeCardInner ul,
+.homeCardInner ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* If you used a plain block of links (not a <ul>), hide ONLY the “stacked links” block */
+.homeCardInner .links,
+.homeCardInner .linkStack,
+.homeCardInner .navStack {
+  display: none !important;
+}
+
+/* =========================================================
+   SUGGESTION BOX BUTTON FIX (your purple button)
+   ========================================================= */
+
+button {
+  font: inherit;
+}
+
+.primaryBtn,
+.submitBtn,
+.sendBtn,
+button[type="submit"] {
+  border: 1px solid rgba(var(--accent), 0.28);
+  background: rgba(var(--accent), 0.18);
+  color: white;
+  padding: 14px 16px;
+  border-radius: 16px;
+  min-height: 48px;
+  cursor: pointer;
+}
+
+/* =========================================================
+   DESKTOP TWEAKS
+   ========================================================= */
+
+@media (min-width: 820px) {
+  .homeCardInner {
+    padding: 34px 34px 28px;
+    padding-right: 150px;
+  }
+
+  .homeTitle {
+    font-size: 2.45rem;
+  }
+
+  .navDock,
+  .nav,
+  .navMenu,
+  .navButtons,
+  .navLinks,
+  .homeNav,
+  .sideNav,
+  .rightNav,
+  .menuDock,
+  .menuButtons,
+  .linksDock {
+    right: 18px !important;
+  }
+
+  .navDock a,
+  .nav a,
+  .navMenu a,
+  .navButtons a,
+  .navLinks a,
+  .homeNav a,
+  .sideNav a,
+  .rightNav a,
+  .menuDock a,
+  .menuButtons a,
+  .linksDock a {
+    padding: 12px 18px !important;
+    font-size: 1rem !important;
+  }
 }

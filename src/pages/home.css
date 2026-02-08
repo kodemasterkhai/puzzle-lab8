@@ -1,164 +1,230 @@
+/* ===== GLOBAL SAFETY (stops the “off the left” / overflow issue) ===== */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 /* ===== PAGE BACKGROUND ===== */
 .home {
   min-height: 100vh;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(124, 58, 237, 0.25), transparent 40%),
-    radial-gradient(circle at 80% 0%, rgba(79, 70, 229, 0.25), transparent 40%),
-    linear-gradient(180deg, #0f172a, #020617);
+  padding: 24px 14px;
   color: white;
-  padding: 60px 20px;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+}
+
+/* Theme variants */
+.themeAmethyst {
+  background: radial-gradient(circle at top, #0f172a, #020617);
+}
+
+.themeOcean {
+  background: radial-gradient(circle at top, #06233b, #020617);
+}
+
+.themeMidnight {
+  background: radial-gradient(circle at top, #111827, #020617);
 }
 
 /* ===== MAIN CARD ===== */
 .homeCard {
   width: 100%;
-  max-width: 880px;
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 22px;
-  padding: 44px;
-  backdrop-filter: blur(18px);
+  max-width: 760px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 18px;
+  padding: 18px;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.45);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow:
-    0 0 60px rgba(79, 70, 229, 0.15),
-    0 20px 60px rgba(0, 0, 0, 0.6);
-  animation: fadeIn 0.6s ease forwards;
+  overflow: hidden; /* ✅ stops any child from “bleeding” off-screen */
 }
 
-.homeCardInner {
-  text-align: center;
+/* ===== TITLE BLOCK ===== */
+.introBlock {
+  width: 100%;
+  margin-bottom: 14px;
 }
 
 .homeTitle {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-  background: linear-gradient(90deg, #c4b5fd, #818cf8);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-size: 1.85rem;
+  margin: 0 0 8px 0;
+  line-height: 1.12;
 }
 
 .homeMuted {
-  opacity: 0.65;
-  margin-bottom: 32px;
-  line-height: 1.7;
-  font-size: 1rem;
+  margin: 0;
+  opacity: 0.82;
+  line-height: 1.45;
+  max-width: 52ch;
 }
 
-/* ===== FORM ===== */
-.suggestForm {
+/* ===== NAV BUBBLES (VERTICAL STACK) ===== */
+.navBubbles {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  margin-top: 25px;
+  gap: 12px;
+  width: 100%;
+  margin: 14px 0 16px 0;
 }
 
-.suggestRow {
+.bubble {
   display: flex;
-  flex-direction: column;
-  text-align: left;
-}
+  align-items: center;
+  justify-content: center;
 
-.suggestLabel {
-  margin-bottom: 6px;
-  font-size: 0.9rem;
-  opacity: 0.75;
-  letter-spacing: 0.3px;
-}
+  width: 100%;          /* ✅ full width so nothing wraps off-screen */
+  height: 48px;         /* ✅ equal size bubbles */
+  border-radius: 999px;
 
-/* ===== INPUTS ===== */
-.suggestInput,
-.suggestTextarea {
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 12px;
-  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+
+  text-decoration: none;
   color: white;
-  font-size: 0.95rem;
+  font-weight: 700;
+
+  /* stops text wrapping weirdly */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  transition: transform 160ms ease, background 160ms ease, border 160ms ease;
+}
+
+.bubble:active {
+  transform: scale(0.99);
+}
+
+.bubble:hover {
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+}
+
+/* ===== THEME (STACKED UNDER NAV) ===== */
+.themeRow {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.themeLabel {
+  opacity: 0.85;
+  font-weight: 700;
+}
+
+.themeSelect {
+  width: 100%;
+  appearance: none;
+  padding: 12px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
   outline: none;
-  transition: all 0.25s ease;
 }
 
-.suggestInput::placeholder,
-.suggestTextarea::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+/* ===== SUGGESTIONS CARD ===== */
+.suggestionsCard {
+  width: 100%;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  padding: 16px;
 }
 
-.suggestInput:hover,
-.suggestTextarea:hover {
-  border-color: rgba(255, 255, 255, 0.25);
+.suggestionsHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
-.suggestInput:focus,
-.suggestTextarea:focus {
-  border-color: #8b5cf6;
-  box-shadow: 0 0 16px rgba(139, 92, 246, 0.6);
-  background: rgba(255, 255, 255, 0.09);
-}
-
-/* ===== BUTTON ===== */
-.suggestBtn {
-  margin-top: 12px;
-  padding: 15px;
-  border: none;
-  border-radius: 14px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  background: linear-gradient(135deg, #7c3aed, #4f46e5);
-  color: white;
-  transition: all 0.25s ease;
-  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.4);
-}
-
-.suggestBtn:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 12px 30px rgba(124, 58, 237, 0.6);
-}
-
-.suggestBtn:active {
-  transform: scale(0.98);
-}
-
-.suggestBtn:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-/* ===== STATUS MESSAGES ===== */
-.suggestOk,
-.suggestErr {
-  margin-top: 14px;
-  padding: 13px;
+.bulb {
+  width: 36px;
+  height: 36px;
   border-radius: 12px;
-  text-align: center;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.suggestionsTitle {
+  margin: 0;
+  font-size: 1.02rem;
+  opacity: 0.92;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.suggestionsForm {
+  display: grid;
+  gap: 10px;
+}
+
+.fieldLabel {
+  font-size: 0.95rem;
+  opacity: 0.8;
+  font-weight: 700;
+}
+
+.fieldInput,
+.fieldTextarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+  outline: none;
+}
+
+.fieldTextarea {
+  resize: vertical;
+}
+
+.submitBtn {
+  margin-top: 6px;
+  height: 52px;
+  border-radius: 16px;
+  border: none;
+  background: rgba(124, 58, 237, 0.85);
+  color: white;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.statusText {
+  margin: 6px 0 0 0;
+  opacity: 0.85;
   font-size: 0.95rem;
 }
 
-.suggestOk {
-  background: rgba(16, 185, 129, 0.15);
-  color: #34d399;
-  box-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
-}
-
-.suggestErr {
-  background: rgba(239, 68, 68, 0.15);
-  color: #f87171;
-  box-shadow: 0 0 12px rgba(239, 68, 68, 0.25);
-}
-
-/* ===== ANIMATION ===== */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+/* ===== DESKTOP POLISH ===== */
+@media (min-width: 768px) {
+  .home {
+    padding: 60px 20px;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .homeCard {
+    padding: 36px;
+    border-radius: 22px;
+    max-width: 900px;
+  }
+
+  .homeTitle {
+    font-size: 2.3rem;
+  }
+
+  .suggestionsCard {
+    padding: 22px;
+    border-radius: 22px;
   }
 }
