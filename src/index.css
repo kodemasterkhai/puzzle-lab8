@@ -1,74 +1,45 @@
-* { box-sizing: border-box; }
-body { margin: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: white; }
-
-/* ===== THEMES ===== */
-
-:root[data-theme="amethyst"] {
-  --bg1: #2e1065;
-  --bg2: #0f172a;
-  --accent: #a78bfa;
+/* ===== PAGE WRAPPER ===== */
+.pageWrap {
+  min-height: 100vh;
+  padding: 20px 12px 40px;
+  background: radial-gradient(circle at top, #5b21b6, #0f172a 55%, #020617);
+  color: white;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  text-align: center;
 }
 
-:root[data-theme="ocean"] {
-  --bg1: #0c4a6e;
-  --bg2: #020617;
-  --accent: #38bdf8;
+.pageTitle {
+  font-size: 1.8rem;
+  margin-bottom: 16px;
 }
 
-:root[data-theme="midnight"] {
-  --bg1: #1e1b4b;
-  --bg2: #000000;
-  --accent: #818cf8;
-}
-
-:root[data-theme="sunset"] {
-  --bg1: #7c2d12;
-  --bg2: #0f172a;
-  --accent: #fb923c;
-}
-
-:root[data-theme="emerald"] {
-  --bg1: #064e3b;
-  --bg2: #020617;
-  --accent: #34d399;
-}
-
-/* ===== BACKGROUND ===== */
-body {
-  background:
-    radial-gradient(circle at top left, var(--bg1), transparent),
-    radial-gradient(circle at bottom right, var(--bg2), #020617);
-}
-
-/* ===== PAGE LAYOUT ===== */
-.page {
-  padding: 20px;
+/* ===== RESPONSIVE BOARD SYSTEM ===== */
+.boardOuter {
+  width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
-.shell {
-  max-width: 1100px;
+.boardInner {
+  width: min(92vw, 520px);  /* scales for phones */
+  aspect-ratio: 1 / 1;      /* always square */
+}
+
+.boardInner > * {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Placeholder styling */
+.boardPlaceholder {
   width: 100%;
-}
-
-/* ===== GLASS CARD ===== */
-.glassCard {
-  background: rgba(255,255,255,0.05);
-  border-radius: 20px;
-  padding: 20px;
-  backdrop-filter: blur(14px);
+  height: 100%;
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
   border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 0 40px rgba(0,0,0,0.35);
-}
-
-.h1 { margin: 0 0 8px 0; }
-.muted { opacity: 0.8; }
-
-/* Accent glow buttons */
-button {
-  transition: all 0.2s ease;
-}
-button:hover {
-  box-shadow: 0 0 15px var(--accent);
 }
