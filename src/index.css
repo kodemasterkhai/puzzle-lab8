@@ -1,31 +1,74 @@
 * { box-sizing: border-box; }
-body { margin: 0; font-family: system-ui; color: white; }
+body { margin: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: white; }
 
-:root {
-  --accent: #7c3aed;
-  --bg1: rgba(124,58,237,0.3);
-  --bg2: rgba(59,130,246,0.2);
+/* ===== THEMES ===== */
+
+:root[data-theme="amethyst"] {
+  --bg1: #2e1065;
+  --bg2: #0f172a;
+  --accent: #a78bfa;
 }
 
-:root[data-theme="ocean"] { --accent: #3b82f6; }
-:root[data-theme="midnight"] { --accent: #6366f1; }
-:root[data-theme="sunset"] { --accent: #f97316; }
-:root[data-theme="emerald"] { --accent: #10b981; }
+:root[data-theme="ocean"] {
+  --bg1: #0c4a6e;
+  --bg2: #020617;
+  --accent: #38bdf8;
+}
 
+:root[data-theme="midnight"] {
+  --bg1: #1e1b4b;
+  --bg2: #000000;
+  --accent: #818cf8;
+}
+
+:root[data-theme="sunset"] {
+  --bg1: #7c2d12;
+  --bg2: #0f172a;
+  --accent: #fb923c;
+}
+
+:root[data-theme="emerald"] {
+  --bg1: #064e3b;
+  --bg2: #020617;
+  --accent: #34d399;
+}
+
+/* ===== BACKGROUND ===== */
 body {
   background:
-    radial-gradient(circle at top, var(--bg1), transparent),
-    radial-gradient(circle at bottom, var(--bg2), #020617);
+    radial-gradient(circle at top left, var(--bg1), transparent),
+    radial-gradient(circle at bottom right, var(--bg2), #020617);
 }
 
-.page { padding: 20px; display:flex; justify-content:center; }
-.shell { max-width: 1000px; width:100%; }
+/* ===== PAGE LAYOUT ===== */
+.page {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.shell {
+  max-width: 1100px;
+  width: 100%;
+}
+
+/* ===== GLASS CARD ===== */
 .glassCard {
-  background: rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.05);
   border-radius: 20px;
   padding: 20px;
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(14px);
   border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 0 40px rgba(0,0,0,0.35);
 }
-.h1 { margin:0 0 8px 0; }
-.muted { opacity:0.8; }
+
+.h1 { margin: 0 0 8px 0; }
+.muted { opacity: 0.8; }
+
+/* Accent glow buttons */
+button {
+  transition: all 0.2s ease;
+}
+button:hover {
+  box-shadow: 0 0 15px var(--accent);
+}
