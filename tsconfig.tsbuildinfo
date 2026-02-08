@@ -1,1 +1,0 @@
-{"root":["./src/app.tsx","./src/main.tsx","./src/theme.tsx","./src/chess/daily.tsx","./src/chess/puzzles.ts","./src/components/navbar.tsx","./src/lib/supabase.ts","./src/pages/dailychesspuzzle.tsx","./src/pages/chess.tsx","./src/pages/home.tsx","./src/pages/leaderboard.tsx","./src/pages/lib.tsx","./src/pages/london.tsx"],"version":"5.9.3"}
