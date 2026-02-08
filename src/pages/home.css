@@ -1,197 +1,138 @@
-/* ===== GLOBAL SAFETY (stops the “off the left” / overflow issue) ===== */
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 html, body {
   width: 100%;
+  margin: 0;
   overflow-x: hidden;
+  color: white;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-/* ===== PAGE BACKGROUND ===== */
 .home {
   min-height: 100vh;
   padding: 24px 14px;
-  color: white;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   display: flex;
   justify-content: center;
   align-items: flex-start;
 }
 
-/* Theme variants */
-.themeAmethyst {
-  background: radial-gradient(circle at top, #0f172a, #020617);
-}
+/* Themes */
+.themeAmethyst { background: radial-gradient(circle at top, #0f172a, #020617); }
+.themeOcean { background: radial-gradient(circle at top, #06233b, #020617); }
+.themeMidnight { background: radial-gradient(circle at top, #111827, #020617); }
 
-.themeOcean {
-  background: radial-gradient(circle at top, #06233b, #020617);
-}
-
-.themeMidnight {
-  background: radial-gradient(circle at top, #111827, #020617);
-}
-
-/* ===== MAIN CARD ===== */
 .homeCard {
   width: 100%;
   max-width: 760px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 18px;
   padding: 18px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.10);
   backdrop-filter: blur(14px);
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  overflow: hidden; /* ✅ stops any child from “bleeding” off-screen */
+  box-shadow: 0 0 40px rgba(0,0,0,0.45);
+  overflow: hidden;
 }
 
-/* ===== TITLE BLOCK ===== */
-.introBlock {
-  width: 100%;
-  margin-bottom: 14px;
+/* Top */
+.introBlock { position: relative; padding-top: 6px; }
+.introBlock::before {
+  content: "Puzzle Lab";
+  position: absolute;
+  left: -6px;
+  top: -12px;
+  font-size: 72px;
+  font-weight: 900;
+  opacity: 0.08;
+  pointer-events: none;
+  white-space: nowrap;
 }
 
-.homeTitle {
-  font-size: 1.85rem;
-  margin: 0 0 8px 0;
-  line-height: 1.12;
-}
+.homeTitle { margin: 0 0 8px 0; font-size: 1.85rem; position: relative; z-index: 1; }
+.homeMuted { margin: 0 0 14px 0; opacity: 0.82; position: relative; z-index: 1; }
 
-.homeMuted {
-  margin: 0;
-  opacity: 0.82;
-  line-height: 1.45;
-  max-width: 52ch;
-}
-
-/* ===== NAV BUBBLES (VERTICAL STACK) ===== */
+/* Nav bubbles - vertical, same size */
 .navBubbles {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  width: 100%;
-  margin: 14px 0 16px 0;
+  margin: 10px 0 16px 0;
 }
 
 .bubble {
   display: flex;
   align-items: center;
   justify-content: center;
-
-  width: 100%;          /* ✅ full width so nothing wraps off-screen */
-  height: 48px;         /* ✅ equal size bubbles */
+  height: 48px;
+  width: 100%;
   border-radius: 999px;
-
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-
   text-decoration: none;
   color: white;
   font-weight: 700;
-
-  /* stops text wrapping weirdly */
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.14);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-
-  transition: transform 160ms ease, background 160ms ease, border 160ms ease;
 }
 
-.bubble:active {
-  transform: scale(0.99);
-}
+.bubble:hover { background: rgba(255,255,255,0.10); }
 
-.bubble:hover {
-  background: rgba(255, 255, 255, 0.10);
-  border: 1px solid rgba(255, 255, 255, 0.20);
-}
-
-/* ===== THEME (STACKED UNDER NAV) ===== */
+/* Theme under bubbles */
 .themeRow {
   display: grid;
   gap: 8px;
   margin-bottom: 16px;
-  width: 100%;
 }
 
-.themeLabel {
-  opacity: 0.85;
-  font-weight: 700;
-}
+.themeLabel { opacity: 0.85; font-weight: 700; }
 
 .themeSelect {
   width: 100%;
-  appearance: none;
   padding: 12px 14px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
   color: white;
   outline: none;
 }
 
-/* ===== SUGGESTIONS CARD ===== */
+/* Suggestions */
 .suggestionsCard {
-  width: 100%;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.10);
   padding: 16px;
 }
 
-.suggestionsHeader {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.bulb {
-  width: 36px;
-  height: 36px;
-  border-radius: 12px;
-  display: grid;
-  place-items: center;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.suggestionsTitle {
+.suggestionsBig {
   margin: 0;
-  font-size: 1.02rem;
-  opacity: 0.92;
-  font-weight: 800;
-  line-height: 1.25;
+  font-size: 1.35rem;
+  font-weight: 900;
+  text-align: center;
 }
 
-.suggestionsForm {
-  display: grid;
-  gap: 10px;
+.suggestionsSub {
+  margin: 10px 0 14px 0;
+  opacity: 0.85;
+  text-align: center;
+  line-height: 1.35;
 }
 
-.fieldLabel {
-  font-size: 0.95rem;
-  opacity: 0.8;
-  font-weight: 700;
-}
+.suggestionsForm { display: grid; gap: 10px; }
 
-.fieldInput,
-.fieldTextarea {
+.fieldLabel { font-size: 0.95rem; opacity: 0.8; font-weight: 700; }
+
+.fieldInput, .fieldTextarea {
   width: 100%;
   padding: 12px 14px;
   border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
   color: white;
   outline: none;
 }
 
-.fieldTextarea {
-  resize: vertical;
-}
-
 .submitBtn {
-  margin-top: 6px;
   height: 52px;
   border-radius: 16px;
   border: none;
@@ -201,30 +142,13 @@ html, body {
   cursor: pointer;
 }
 
-.statusText {
-  margin: 6px 0 0 0;
-  opacity: 0.85;
-  font-size: 0.95rem;
-}
+.statusText { margin: 6px 0 0 0; opacity: 0.85; }
 
-/* ===== DESKTOP POLISH ===== */
+/* Desktop polish */
 @media (min-width: 768px) {
-  .home {
-    padding: 60px 20px;
-  }
-
-  .homeCard {
-    padding: 36px;
-    border-radius: 22px;
-    max-width: 900px;
-  }
-
-  .homeTitle {
-    font-size: 2.3rem;
-  }
-
-  .suggestionsCard {
-    padding: 22px;
-    border-radius: 22px;
-  }
+  .home { padding: 60px 20px; }
+  .homeCard { padding: 36px; max-width: 900px; border-radius: 22px; }
+  .homeTitle { font-size: 2.3rem; }
+  .introBlock::before { font-size: 92px; top: -18px; left: -10px; }
+  .suggestionsCard { padding: 22px; border-radius: 22px; }
 }
