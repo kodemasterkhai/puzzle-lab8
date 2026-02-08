@@ -1,21 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import App from "./App";
+import App from "./App.tsx";
 import "./index.css";
 
-window.addEventListener("error", (e) => {
-  document.body.innerHTML =
-    `<pre style="padding:16px;font-family:ui-monospace,Menlo,monospace;color:white;background:#0b1020;">
-Runtime Error:
-${String(e.message || e.error || e)}
-</pre>`;
-});
+const rootEl = document.getElementById("root");
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <BrowserRouter>
+if (!rootEl) {
+  document.body.innerHTML = "<pre>Root element #root not found</pre>";
+} else {
+  ReactDOM.createRoot(rootEl).render(
+    <React.StrictMode>
       <App />
-    </BrowserRouter>
-  </React.StrictMode>
-);
+    </React.StrictMode>
+  );
+}
