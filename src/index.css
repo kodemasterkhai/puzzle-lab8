@@ -1,4 +1,19 @@
-/* ===== PAGE WRAPPER ===== */
+/* ===== GLOBAL BASE ===== */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* ===== PAGE WRAPPER (keep your vibe) ===== */
 .pageWrap {
   min-height: 100vh;
   padding: 20px 12px 40px;
@@ -10,36 +25,84 @@
 
 .pageTitle {
   font-size: 1.8rem;
-  margin-bottom: 16px;
+  margin: 0 0 16px;
 }
 
-/* ===== RESPONSIVE BOARD SYSTEM ===== */
-.boardOuter {
+/* =========================================================
+   ✅ RESPONSIVE CONTAINERS (SAFE)
+   - We resize the OUTER box only.
+   - We DO NOT mess with your board internals.
+   - We only ask the *direct child* to fill the frame.
+   ========================================================= */
+
+/* ===== CHESS: square frame, centered, phone-safe ===== */
+.chessFrameOuter {
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  padding: 0 10px;
 }
 
-.boardInner {
-  width: min(92vw, 520px);  /* scales for phones */
-  aspect-ratio: 1 / 1;      /* always square */
+.chessFrame {
+  width: min(92vw, 460px);     /* smaller than before so H-file never spills */
+  aspect-ratio: 1 / 1;         /* chess must stay square */
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  border-radius: 16px;
+  overflow: hidden;            /* prevents the right column hanging out */
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.18);
 }
 
-.boardInner > * {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-/* Placeholder styling */
-.boardPlaceholder {
+/* Only the DIRECT child fills the frame (safe) */
+.chessFrame > .chessFrameInner {
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #1e293b, #0f172a);
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  border: 1px solid rgba(255,255,255,0.1);
 }
+
+/* ===== PUZZLE: flexible (not forced square), centered ===== */
+.puzzleFrameOuter {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 10px;
+}
+
+.puzzleFrame {
+  width: min(94vw, 720px);
+  max-height: 78vh;            /* stops it being too tall on iPhone */
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.18);
+}
+
+/* Direct child fills puzzle frame */
+.puzzleFrame > .puzzleFrameInner {
+  width: 100%;
+  height: 100%;
+}
+
+/* Optional: if your puzzle uses an img tag, keep it visible */
+.puzzleFrame img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+/* ===== GLOBAL BASE ===== */
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: radial-gradient(circle at top, #5b21b6, #0f172a 55%, #020617);
+  color: white;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+#root { min-height: 100vh; }
