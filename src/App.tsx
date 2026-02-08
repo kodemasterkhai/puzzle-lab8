@@ -1,20 +1,22 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+import NavBar from "./components/NavBar";
 
 import Home from "./pages/home";
+import Chess from "./pages/chess";
 import DailyChessPuzzle from "./pages/DailyChessPuzzle";
-import LondonJigsaw from "./pages/LondonJigsaw";
-import Leaderboard from "./pages/Leaderboard";
-import AdminSuggestions from "./pages/AdminSuggestions";
+import Lib from "./pages/lib";
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/DailyChessPuzzle" element={<DailyChessPuzzle />} />
-      <Route path="/LondonJigsaw" element={<LondonJigsaw />} />
-      <Route path="/Leaderboard" element={<Leaderboard />} />
-      <Route path="/AdminSuggestions" element={<AdminSuggestions />} />
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+    <>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/chess" element={<Chess />} />
+        <Route path="/DailyChessPuzzle" element={<DailyChessPuzzle />} />
+        <Route path="/lib" element={<Lib />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </>
   );
 }

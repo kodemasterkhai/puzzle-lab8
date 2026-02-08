@@ -1,0 +1,26 @@
+.navBar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 10px;
+  backdrop-filter: blur(14px);
+  background: rgba(10, 15, 30, 0.6);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.navBtn {
+  padding: 8px 14px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: white;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.14);
+}
+
+.navBtn.active {
+  background: rgba(124,58,237,0.85);
+}
