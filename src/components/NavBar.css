@@ -1,58 +1,41 @@
-.navBar {
+.navWrap {
   position: sticky;
   top: 0;
-  z-index: 1000;
-  backdrop-filter: blur(16px);
-  background: rgba(6, 10, 22, 0.55);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  z-index: 999;
+  padding: 14px 14px 0;
+  background: rgba(2, 6, 23, 0.75);
+  backdrop-filter: blur(14px);
 }
 
-.navInner {
+.navBar {
   max-width: 980px;
   margin: 0 auto;
-  padding: 10px 12px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  justify-content: space-between;
-}
-
-.brand {
-  font-weight: 900;
-  letter-spacing: -0.3px;
-  opacity: 0.9;
-  white-space: nowrap;
-}
-
-.navLinks {
+  padding: 10px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
   display: flex;
   gap: 10px;
+  align-items: center;
   flex-wrap: wrap;
-  justify-content: flex-end;
 }
 
-.navBtn {
-  padding: 8px 14px;
-  border-radius: 999px;
+.navLink {
   text-decoration: none;
-  color: rgba(255,255,255,0.92);
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.14);
-  transition: transform 160ms ease, background 160ms ease, border 160ms ease;
-  font-weight: 750;
-  font-size: 14px;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 800;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.06);
 }
 
-.navBtn:hover {
-  background: rgba(255,255,255,0.10);
-  border-color: rgba(255,255,255,0.18);
+.navLink:hover {
+  background: rgba(255, 255, 255, 0.10);
 }
 
-.navBtn:active {
-  transform: translateY(1px) scale(0.99);
-}
-
-.navBtn.active {
-  background: rgba(124,58,237,0.85);
-  border-color: rgba(124,58,237,0.90);
+.navLink.active {
+  color: white;
+  border: 1px solid rgba(0, 255, 180, 0.35);
+  background: rgba(0, 255, 180, 0.14);
 }
